@@ -10,7 +10,8 @@ gem 'sqlite3'
 group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'capybara'
-  gem 'rspec-rails'
+  gem 'rspec-rails', '2.12.2'
+  gem 'ZenTest', '4.8.3'
 end
 
 # Gems used only for assets and not required
