@@ -28,4 +28,36 @@ describe GradeCrawler do
     end
 
   end
+
+  describe 'get_current_term' do
+
+    def GradeCrawler.pub_get_current_term
+      get_current_term
+    end
+
+    it 'should return correct winter term' do
+      Time.stub(:now).and_return(Time.mktime(2013, 1))
+      GradeCrawler.pub_get_current_term.should == 'WS2013'
+    end
+
+    it 'should return correct fall term' do
+      Time.stub(:now).and_return(Time.mktime(2009, 9))
+      GradeCrawler.pub_get_current_term.should == 'FS2009'
+    end
+
+    it 'should return correct summer term' do
+      Time.stub(:now).and_return(Time.mktime(2109, 7))
+      GradeCrawler.pub_get_current_term.should == 'SS2109'
+    end
+
+    it 'should return correct spring term' do
+      Time.stub(:now).and_return(Time.mktime(2014, 2))
+      GradeCrawler.pub_get_current_term.should == 'SP2014'
+    end
+
+
+
+
+  end
+
 end
