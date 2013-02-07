@@ -9,15 +9,15 @@ class GradeCrawler
   POST_STRING_HALF1 = "vterm="
   POST_STRING_HALF2 = "&vinstructor=&vclass=&vdept=&vtitle=&vbool=&vcomnumb="
 
-  def self.get_post_string(term=self.get_current_term)
+  def self.get_post_string(term=get_current_term)
     return POST_STRING_HALF1 + term + POST_STRING_HALF2
   end
 
   def self.get_current_term
     now = Time.now
     cur_year = now.year
-    # Probably a better way to do this :(  
 
+    # There may be a better way to do this..
     start_of_year = Time.mktime(cur_year)
     spring_start = Time.mktime(cur_year, 1, 15)
     summer_start = Time.mktime(cur_year, 5, 15)
@@ -38,6 +38,6 @@ class GradeCrawler
 
   end
 
-  private_class_method :get_post_string
+  private_class_method :get_post_string, :get_current_term
 
 end
