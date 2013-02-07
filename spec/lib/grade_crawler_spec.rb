@@ -4,17 +4,28 @@ require 'grade_crawler'
 describe GradeCrawler do
 
   describe 'get_post_string' do
-    it 'should return a valid post string' do
 
-      GradeCrawler.stub(:get_current_term).and_return 'FS2012'
+    def GradeCrawler.pub_get_post_string(*args)
+      get_post_string(*args)
+    end
 
-      def GradeCrawler.pub_get_post_string
-        get_post_string
-      end
+    it 'should return valid post string with current term by default' do
 
-      GradeCrawler.pub_get_post_string.should == 'vterm=&vinstructor=ABAD%2CNEETU+S&vclass=&vdept=&vtitle=&vbool=&vcomnumb='
+      term = 'FS2012'
+      GradeCrawler.stub(:get_current_term).and_return term
+
+      GradeCrawler.pub_get_post_string.should == GradeCrawler::POST_STRING_HALF1 + term + GradeCrawler::POST_STRING_HALF2
 
     end
-  end
 
+    it 'should return valid post string with parameter term' do
+      term = 'WS2011'
+      GradeCrawler.pub_get_post_string(term).should == GradeCrawler::POST_STRING_HALF1 + term + GradeCrawler::POST_STRING_HALF2
+    end
+
+    it 'should be private method' do
+      expect{GradeCrawler.get_post_string}.to raise_error NoMethodError
+    end
+
+  end
 end
