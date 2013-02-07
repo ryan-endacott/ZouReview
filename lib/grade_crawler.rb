@@ -9,7 +9,10 @@ class GradeCrawler
   POST_STRING_HALF1 = "vterm="
   POST_STRING_HALF2 = "&vinstructor=&vclass=&vdept=&vtitle=&vbool=&vcomnumb="
 
-  def self.get_post_string(term=get_current_term)
+  SITE_URI= 'https://musis1.missouri.edu/gradedist/mu_grade_dist_intro.cfm#CGI.script.name'
+  REQUEST_HEADER = {'Content-Type' => 'application/x-www-form-urlencoded'}
+
+  def self.get_post_string(term)
     return POST_STRING_HALF1 + term + POST_STRING_HALF2
   end
 
