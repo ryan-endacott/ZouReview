@@ -7,6 +7,11 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 
+group :development, :test do
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'rspec-rails'
+end
 
 # Gems used only for assets and not required
 # in production environments by default.
