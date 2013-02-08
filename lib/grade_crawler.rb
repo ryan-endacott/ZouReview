@@ -21,8 +21,7 @@ class GradeCrawler
   end
 
   def self.request_site_data(post_string)
-    agent = Mechanize.new
-    return agent.post(SITE_URI, post_string, REQUEST_HEADER)
+    return Mechanize.new.post(SITE_URI, post_string, REQUEST_HEADER)
   end
 
   def self.get_post_string(term)
@@ -40,6 +39,7 @@ class GradeCrawler
     fall_start = Time.mktime(cur_year, 8, 15)
     winter_start = Time.mktime(cur_year, 12, 15)
 
+    # Find where now is contained 
     if (start_of_year..spring_start).cover? now
       return 'WS' + cur_year.to_s
     elsif (spring_start..summer_start).cover? now
