@@ -16,7 +16,7 @@ class GradeCrawler
   NUM_COLUMNS = 13 
 
   def self.get_grade_data(term=get_current_term)
-
+    
   end
 
   # Parses the html, returning an array of hashes that have all attributes
@@ -41,14 +41,14 @@ class GradeCrawler
         :term => row_content[4],
         :course_au => row_content[5],
         :instructor => row_content[6],
-        :count_a => row_content[7].to_f,
-        :count_b => row_content[8].to_f,
-        :count_c => row_content[9].to_f,
-        :count_d => row_content[10].to_f,
-        :count_f => row_content[11].to_f,
+        :count_a => row_content[7].to_i,
+        :count_b => row_content[8].to_i,
+        :count_c => row_content[9].to_i,
+        :count_d => row_content[10].to_i,
+        :count_f => row_content[11].to_i,
         :avg_gpa => row_content[12].to_f
       }]
-      
+
     end
 
     return parsed_data

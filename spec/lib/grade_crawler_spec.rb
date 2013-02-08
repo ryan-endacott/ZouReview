@@ -50,19 +50,21 @@ describe GradeCrawler do
 
   end
 
-  describe 'parse_site_data' do
+  # Put in separate context to use before(:all) instance variables
+  context 'Using sample files and output' do
 
-    def GradeCrawler.pub_parse_site_data(data)
-      parse_site_data(data)
-    end
+    # Setup stuff used in the tests below
+    before(:all) do
 
-    it 'should return an array of fully formed class_data hashes' do
+      @agent = Mechanize.new
 
-      agent = Mechanize.new
-      sample_data = agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_row.html')
+      @sample_file = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html')
+      @sample_data = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_row.html')
+
+      @sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
 
       # What example data from /spec/support/sample_grade_row.html should return
-      class_data = [{
+      @class_data = [{
           :course_dept => 'HP',
           :course_title => 'PHYSICAL AGENTS',
           :course_number => '214',
@@ -78,40 +80,51 @@ describe GradeCrawler do
           :avg_gpa => 3.353
         }]
 
+    end
 
-      GradeCrawler.pub_parse_site_data(sample_data).should == class_data
+
+    describe 'parse_site_data' do
+
+      def GradeCrawler.pub_parse_site_data(data)
+        parse_site_data(data)
+      end
+
+      it 'should return an array of fully formed class_data hashes' do
+
+        GradeCrawler.pub_parse_site_data(@sample_data).should == @class_data
+
+      end
 
     end
+
+    describe 'request_site_data' do
+
+      def GradeCrawler.pub_request_site_data(post_string)
+        request_site_data(post_string)
+      end
+
+
+      # I originally wanted these to be divided into multiple tests.
+      # I'm not sure if that is possible or better
+      it 'should return a mechanize page of the site data' do
+
+        Mechanize.should_receive(:new).and_return(@agent)
+
+        @agent.should_receive(:post)
+          .with(GradeCrawler::SITE_URI, @sample_post_string, GradeCrawler::REQUEST_HEADER)
+          .and_return(@sample_file)
+
+        GradeCrawler.pub_request_site_data(@sample_post_string).should == @sample_file
+
+      end
+
+    end
+
+    describe 'get_grade_data' do
+
+    end
+
+
 
   end
-
-  describe 'request_site_data' do
-
-    def GradeCrawler.pub_request_site_data(post_string)
-      request_site_data(post_string)
-    end
-
-
-    # I originally wanted these to be divided into multiple tests.
-    # I'm not sure if that is possible or better
-    it 'should return a mechanize page of the site data' do
-
-      # Setup
-      agent = Mechanize.new
-      sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
-      sample_file = agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html')
-
-      Mechanize.should_receive(:new).and_return(agent)
-
-
-      agent.should_receive(:post)
-        .with(GradeCrawler::SITE_URI, sample_post_string, GradeCrawler::REQUEST_HEADER)
-        .and_return(sample_file)
-
-      GradeCrawler.pub_request_site_data(sample_post_string).should == sample_file
-
-    end
-
-  end
-
 end
