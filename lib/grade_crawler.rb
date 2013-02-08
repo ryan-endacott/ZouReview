@@ -13,11 +13,46 @@ class GradeCrawler
   SITE_URI= 'https://musis1.missouri.edu/gradedist/mu_grade_dist_intro.cfm#CGI.script.name'
   REQUEST_HEADER = {'Content-Type' => 'application/x-www-form-urlencoded'}
 
+  NUM_COLUMNS = 13 
+
   def self.get_grade_data(term=get_current_term)
 
   end
 
-  def self.parse_site_data(body)
+  # Parses the html, returning an array of hashes that have all attributes
+  def self.parse_site_data(data)
+
+    data = Nokogiri::HTML(data)
+
+    table_contents = data.css('td.flabelcell')
+
+    parsed_data = []
+
+    # Deal with each row
+    table_contents.each_slice(NUM_COLUMNS) do |row|
+
+      row_content = row.map { |val| val.content }
+
+      parsed_data += [{
+        :course_dept => row_content[0].strip,
+        :course_title => row_content[1].strip,
+        :course_number => row_content[2].strip, # Can have letters, so keep as string
+        :section_number => row_content[3].strip, # Same as above
+        :term => row_content[4],
+        :course_au => row_content[5],
+        :instructor => row_content[6],
+        :count_a => row_content[7].to_f,
+        :count_b => row_content[8].to_f,
+        :count_c => row_content[9].to_f,
+        :count_d => row_content[10].to_f,
+        :count_f => row_content[11].to_f,
+        :avg_gpa => row_content[12].to_f
+      }]
+      
+    end
+
+    return parsed_data
+
   end
 
   def self.request_site_data(post_string)
