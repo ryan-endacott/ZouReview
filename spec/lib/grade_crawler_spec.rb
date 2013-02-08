@@ -29,22 +29,22 @@ describe GradeCrawler do
     end
 
     it 'should return correct winter term' do
-      Time.stub(:now).and_return(Time.mktime(2013, 1))
+      Time.stub(:now).and_return Time.mktime(2013, 1)
       GradeCrawler.pub_get_current_term.should == 'WS2013'
     end
 
     it 'should return correct fall term' do
-      Time.stub(:now).and_return(Time.mktime(2009, 9))
+      Time.stub(:now).and_return Time.mktime(2009, 9)
       GradeCrawler.pub_get_current_term.should == 'FS2009'
     end
 
     it 'should return correct summer term' do
-      Time.stub(:now).and_return(Time.mktime(2109, 7))
+      Time.stub(:now).and_return Time.mktime(2109, 7)
       GradeCrawler.pub_get_current_term.should == 'SS2109'
     end
 
     it 'should return correct spring term' do
-      Time.stub(:now).and_return(Time.mktime(2014, 2))
+      Time.stub(:now).and_return Time.mktime(2014, 2)
       GradeCrawler.pub_get_current_term.should == 'SP2014'
     end
 
@@ -61,6 +61,7 @@ describe GradeCrawler do
       @sample_file = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html')
       @sample_data = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_row.html')
 
+      @sample_term = 'FS2012'
       @sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
 
       # What example data from /spec/support/sample_grade_row.html should return
@@ -108,11 +109,11 @@ describe GradeCrawler do
       # I'm not sure if that is possible or better
       it 'should return a mechanize page of the site data' do
 
-        Mechanize.should_receive(:new).and_return(@agent)
+        Mechanize.should_receive(:new).and_return @agent
 
         @agent.should_receive(:post)
           .with(GradeCrawler::SITE_URI, @sample_post_string, GradeCrawler::REQUEST_HEADER)
-          .and_return(@sample_file)
+          .and_return @sample_file
 
         GradeCrawler.pub_request_site_data(@sample_post_string).should == @sample_file
 
@@ -121,6 +122,21 @@ describe GradeCrawler do
     end
 
     describe 'get_grade_data' do
+
+      it 'should return proper data for a crawl' do
+
+        GradeCrawler.should_receive(:request_site_data).and_return @sample_data
+
+        GradeCrawler.should_receive(:get_post_string)
+          .with(@sample_term)
+          .and_return @sample_post_string
+
+        GradeCrawler.should_receive(:parse_site_data)
+          .with(@sample_data)
+          .and_return @class_data
+        
+        GradeCrawler.get_grade_data(@sample_term).should == @class_data
+      end
 
     end
 
