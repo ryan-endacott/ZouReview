@@ -21,7 +21,11 @@ class GradeCrawler
 
     page = request_site_data(post_string)
 
-    return parse_site_data(page)
+    if page.is_a? String
+      return parse_site_data page
+    else
+      return parse_site_data page.body
+    end
 
   end
 
