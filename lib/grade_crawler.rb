@@ -12,6 +12,16 @@ class GradeCrawler
   SITE_URI= 'https://musis1.missouri.edu/gradedist/mu_grade_dist_intro.cfm#CGI.script.name'
   REQUEST_HEADER = {'Content-Type' => 'application/x-www-form-urlencoded'}
 
+  def self.get_grade_data(term=get_current_term)
+
+  end
+
+  def self.parse_site_data(body)
+  end
+
+  def self.request_site_data(post_string)
+  end
+
   def self.get_post_string(term)
     return POST_STRING_HALF1 + term + POST_STRING_HALF2
   end
@@ -41,6 +51,7 @@ class GradeCrawler
 
   end
 
-  private_class_method :get_post_string, :get_current_term
+  private_class_method :get_post_string, :get_current_term,
+   :request_site_data, :parse_site_data
 
 end
