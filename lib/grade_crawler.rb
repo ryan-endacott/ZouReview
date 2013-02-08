@@ -16,7 +16,13 @@ class GradeCrawler
   NUM_COLUMNS = 13 
 
   def self.get_grade_data(term=get_current_term)
-    
+
+    post_string = get_post_string(term)
+
+    page = request_site_data(post_string)
+
+    return parse_site_data(page)
+
   end
 
   # Parses the html, returning an array of hashes that have all attributes
