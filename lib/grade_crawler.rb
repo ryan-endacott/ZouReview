@@ -1,6 +1,7 @@
 # Crawler for the grade distribution data
 
 require 'nokogiri'
+require 'mechanize'
 
 
 
@@ -20,6 +21,8 @@ class GradeCrawler
   end
 
   def self.request_site_data(post_string)
+    agent = Mechanize.new
+    return agent.post(SITE_URI, post_string, REQUEST_HEADER)
   end
 
   def self.get_post_string(term)

@@ -54,29 +54,30 @@ describe GradeCrawler do
 
   describe 'request_site_data' do
 
+
     def GradeCrawler.pub_request_site_data(post_string)
       request_site_data(post_string)
     end
 
-    it 'creates a new mechanize object' do
-      @agent = mechanize.new
-      mechanize.should_receive(:new).and_return(@agent)
-    end
-
-    it 'sends a post request to grade site' do
-      @sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
-      @sample_file = @agent.get_file('../support/sample_grade_data.html')
-
-      @agent.should_receive(:post)
-        .with(GradeCrawler::SITE_URI, @sample_post_string, GradeCrawler::REQUEST_HEADER)
-        .should_return(@sample_file)
-    end
-
     it 'should return a mechanize page of the site data' do
-      GradeCrawler.pub_request_site_data(@sample_post_string).should == @sample_file
+
+      agent = Mechanize.new
+
+      Mechanize.should_receive(:new).and_return(agent)
+
+      sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
+      
+      sample_file = agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html')
+
+
+      agent.should_receive(:post)
+        .with(GradeCrawler::SITE_URI, sample_post_string, GradeCrawler::REQUEST_HEADER)
+        .and_return(sample_file)
+
+      GradeCrawler.pub_request_site_data(sample_post_string).should == sample_file
+
     end
 
   end
-
 
 end
