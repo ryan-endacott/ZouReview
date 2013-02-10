@@ -34,6 +34,9 @@ gem 'nokogiri'
 # Post to get grade data
 gem 'mechanize'
 
+# Gem for hiding configuration data
+gem 'figaro'
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
