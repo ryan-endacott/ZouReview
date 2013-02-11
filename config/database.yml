@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 
 mysql: &mysql
-  adapter: mysql
+  adapter: mysql2
   encoding: utf8
   database: <%= ENV['DB_NAME'] %>
   username: <%= ENV['DB_USER'] %>
