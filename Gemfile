@@ -7,6 +7,8 @@ gem 'rails', '3.2.11'
 
 gem 'sqlite3'
 
+gem 'mysql2'
+
 group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'capybara'
