@@ -6,4 +6,6 @@ class Department < ActiveRecord::Base
 
   attr_accessible :name, :abbreviation
 
+  validates_presence_of :abbreviation
+  
 end
