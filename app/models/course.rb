@@ -7,4 +7,6 @@ class Course < ActiveRecord::Base
 
   attr_accessible :number, :title
 
+  validates_presence_of :number, :title
+
 end
