@@ -6,6 +6,10 @@ class Instructor < ActiveRecord::Base
 
   attr_accessible :name
 
-  validates_presence_of :name
-  
+  before_save :set_blank_name_to_staff
+
+  private
+    def set_blank_name_to_staff
+      self.name = 'Staff' if self.name.nil? || self.name.empty?
+    end
 end
