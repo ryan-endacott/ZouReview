@@ -1,5 +1,7 @@
 require 'spec_helper'
 
 describe Section do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it {should belong_to :instructor}
+  it {should belong_to :course}
+  it {should have_one :department}
 end
