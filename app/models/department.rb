@@ -4,6 +4,6 @@ class Department < ActiveRecord::Base
   has_many :sections, :through => :courses
   has_many :instructors, :through => :sections
 
-  attr_accessible :name
+  attr_accessible :name, :abbreviation
 
 end
