@@ -14,6 +14,7 @@ group :development, :test do
   gem 'capybara'
   gem 'rspec-rails', '2.12.2'
   gem 'ZenTest', '4.8.3'
+  gem 'shoulda-matchers'
 end
 
 # Gems used only for assets and not required
