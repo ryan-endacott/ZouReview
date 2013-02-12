@@ -25,13 +25,13 @@ describe GradeDataImporter do
         :section_number => '1',
         :term => 'WS2001',
         :course_au => 'HP',
-        :instructor => 'ABBOTT',
+        :instructor => 'John',
         :count_a => 12,
-        :count_b => 22,
+        :count_b => 2,
         :count_c => 0,
-        :count_d => 0,
-        :count_f => 0,
-        :avg_gpa => 3.353
+        :count_d => 5,
+        :count_f => 8,
+        :avg_gpa => 3.053
       }] 
 
     @length = @class_data.length
@@ -40,12 +40,12 @@ describe GradeDataImporter do
   describe 'import_data' do
 
     it 'should call handle_class_section many (class_data.length) times' do
-      GradeDataImporter.should_receive(:handle_class_section).exactly(@length).times
+      GradeDataImporter.should_receive(:handle_section_data).exactly(@length).times
     end
 
     it 'should send each hash in class_data to handle_class_section' do
       @class_data.each do |section_data|
-        GradeDataImporter.should_receive(:handle_class_section).with section_data
+        GradeDataImporter.should_receive(:handle_section_data).with section_data
       end
     end
 
