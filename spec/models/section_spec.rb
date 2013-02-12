@@ -12,6 +12,9 @@ describe Section do
   it {should validate_presence_of :num_f}
   it {should validate_presence_of :avg_gpa}
   it {should validate_presence_of :term}
+  it {should validate_presence_of :course}
+  it {should validate_presence_of :instructor}
+  it {should validate_presence_of :department}
 
   it {should validate_numericality_of(:num_a).only_integer}
   it {should validate_numericality_of(:num_b).only_integer}
