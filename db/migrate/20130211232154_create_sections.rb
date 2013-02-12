@@ -7,8 +7,7 @@ class CreateSections < ActiveRecord::Migration
       t.integer :num_b
       t.integer :num_c
       t.integer :num_d
-      t.string :num_f
-      t.string :integer
+      t.integer :num_f
       t.float :avg_gpa
 
       t.timestamps
