@@ -11,6 +11,7 @@ describe Section do
   it {should validate_presence_of :num_d}
   it {should validate_presence_of :num_f}
   it {should validate_presence_of :avg_gpa}
+  it {should validate_presence_of :number}
   it {should validate_presence_of :term}
   it {should validate_presence_of :course}
   it {should validate_presence_of :instructor}
