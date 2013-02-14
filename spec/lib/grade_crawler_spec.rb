@@ -54,34 +54,14 @@ describe GradeCrawler do
   context 'Using sample files and output' do
 
     # Setup stuff used in the tests below
-    before(:all) do
+    let(:class_data) { [FactoryGirl.build(:crawled_data)] } 
 
-      @agent = Mechanize.new
+    let!(:agent) { Mechanize.new }
+    let(:sample_file) { agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html') }
+    let(:sample_data) { agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_row.html') }
 
-      @sample_file = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_data.html')
-      @sample_data = @agent.get_file('file:///' + Rails.root.to_s + '/spec/support/sample_grade_row.html')
-
-      @sample_term = 'FS2012'
-      @sample_post_string = GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2
-
-      # What example data from /spec/support/sample_grade_row.html should return
-      @class_data = [{
-          :course_dept => 'HP',
-          :course_title => 'PHYSICAL AGENTS',
-          :course_number => '214',
-          :section_number => '1',
-          :term => 'WS2001',
-          :course_au => 'HP',
-          :instructor => 'ABBOTT',
-          :count_a => 12,
-          :count_b => 22,
-          :count_c => 0,
-          :count_d => 0,
-          :count_f => 0,
-          :avg_gpa => 3.353
-        }]
-
-    end
+    let(:sample_term) {'FS2012'}
+    let(:sample_post_string) { GradeCrawler::POST_STRING_HALF1 + 'FS2012' + GradeCrawler::POST_STRING_HALF2 }
 
 
     describe 'parse_site_data' do
@@ -92,7 +72,7 @@ describe GradeCrawler do
 
       it 'should return an array of fully formed class_data hashes' do
 
-        GradeCrawler.pub_parse_site_data(@sample_data).should == @class_data
+        GradeCrawler.pub_parse_site_data(sample_data).should == class_data
 
       end
 
@@ -109,13 +89,13 @@ describe GradeCrawler do
       # I'm not sure if that is possible or better
       it 'should return a mechanize page of the site data' do
 
-        Mechanize.should_receive(:new).and_return @agent
+        Mechanize.stub(:new).and_return agent
 
-        @agent.should_receive(:post)
-          .with(GradeCrawler::SITE_URI, @sample_post_string, GradeCrawler::REQUEST_HEADER)
-          .and_return @sample_file
+        agent.should_receive(:post)
+          .with(GradeCrawler::SITE_URI, sample_post_string, GradeCrawler::REQUEST_HEADER)
+          .and_return sample_file
 
-        GradeCrawler.pub_request_site_data(@sample_post_string).should == @sample_file
+        GradeCrawler.pub_request_site_data(sample_post_string).should == sample_file
 
       end
 
@@ -125,17 +105,17 @@ describe GradeCrawler do
 
       it 'should return proper data for a crawl' do
 
-        GradeCrawler.should_receive(:request_site_data).and_return @sample_data
+        GradeCrawler.should_receive(:request_site_data).and_return sample_data
 
         GradeCrawler.should_receive(:get_post_string)
-          .with(@sample_term)
-          .and_return @sample_post_string
+          .with(sample_term)
+          .and_return sample_post_string
 
         GradeCrawler.should_receive(:parse_site_data)
-          .with(@sample_data)
-          .and_return @class_data
+          .with(sample_data)
+          .and_return class_data
         
-        GradeCrawler.get_grade_data(@sample_term).should == @class_data
+        GradeCrawler.get_grade_data(sample_term).should == class_data
       end
 
     end
