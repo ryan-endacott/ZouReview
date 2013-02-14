@@ -64,7 +64,7 @@ describe 'Alll of the factories!!' do
     end
 
     it 'should be valid' do
-      pending 'I think I am going to remove the validate presence of course and instructor'
+      section.should be_valid
     end
 
   end
