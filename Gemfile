@@ -15,6 +15,7 @@ group :development, :test do
   gem 'rspec-rails', '2.12.2'
   gem 'ZenTest', '4.8.3'
   gem 'shoulda-matchers'
+  gem 'factory_girl_rails'
 end
 
 # Gems used only for assets and not required
