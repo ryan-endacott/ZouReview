@@ -8,7 +8,7 @@ class Section < ActiveRecord::Base
   attr_accessible :avg_gpa, :num_a, :num_b, :num_c, :num_d, :num_f, :number, :term
 
   validates_presence_of :avg_gpa, :num_a, :num_b, :num_c, :num_d,
-    :num_f, :number, :term, :course, :instructor
+    :num_f, :number, :term
 
   validates :num_a, :num_b, :num_c, :num_d, :num_f, :numericality => {:only_integer => true}
 
