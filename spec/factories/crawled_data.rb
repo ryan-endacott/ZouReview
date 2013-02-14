@@ -12,8 +12,10 @@ FactoryGirl.define do
     count_a 12
     count_b 22
     count_c 0
-    count_d 2
+    count_d 0
     count_f 0
     avg_gpa 3.353
+
+    initialize_with { attributes }
   end
 end
