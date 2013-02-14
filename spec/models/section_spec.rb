@@ -22,4 +22,5 @@ describe Section do
   it {should validate_numericality_of(:num_d).only_integer}
   it {should validate_numericality_of(:num_f).only_integer}
   it {should validate_numericality_of :avg_gpa}
+
 end
