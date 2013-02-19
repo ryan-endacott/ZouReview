@@ -1,4 +1,5 @@
 # Factory to represent crawled and parsed data from grade distribution site
+# Default should be equal to factory outputs for course, section, department, and instructor
 
 FactoryGirl.define do
   factory :crawled_data, class:Hash do
@@ -6,7 +7,7 @@ FactoryGirl.define do
     course_title 'PHYSICAL AGENTS'
     course_number '214'
     section_number '1'
-    term 'WS2001'
+    term 'FS2011'
     course_au 'HP'
     instructor 'ABBOTT'
     count_a 12

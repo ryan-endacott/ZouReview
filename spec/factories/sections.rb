@@ -7,7 +7,7 @@ FactoryGirl.define do
     num_b 22
     num_c 0
     num_d 0
-    num_f 2
+    num_f 0
     avg_gpa 3.353
   end
 end
