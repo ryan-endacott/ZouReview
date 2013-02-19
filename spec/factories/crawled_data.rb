@@ -7,7 +7,7 @@ FactoryGirl.define do
     course_title 'PHYSICAL AGENTS'
     course_number '214'
     section_number '1'
-    term 'FS2011'
+    term 'WS2001'
     course_au 'HP'
     instructor 'ABBOTT'
     count_a 12

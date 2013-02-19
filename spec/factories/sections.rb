@@ -2,7 +2,7 @@
 FactoryGirl.define do 
   factory :section do
     number '1'
-    term 'FS2011'
+    term 'WS2001'
     num_a 12
     num_b 22
     num_c 0

@@ -18,10 +18,12 @@ class SectionCreator
   def create_section!(section_data)
 
     department = find_or_create_department!(section_data[:course_dept])
-    course = find_or_create_course!(section_data[:course_title], section_data[:course_number])
+    course = find_or_create_course!(department, section_data[:course_title], section_data[:course_number])
     instructor = find_or_create_instructor!(section_data[:instructor])
+    section = find_or_create_section!(course, instructor, section_data)
 
-    associate_and_create_section!(section_data, department, course, instructor)
+
+   # associate_and_create_section!(section_data, department, course, instructor)
 
   end
 
@@ -29,17 +31,13 @@ class SectionCreator
     return Department.where(:abbreviation => abbreviation).first_or_create
   end
 
-  def find_or_create_course!(title, number)
-    return Course.where(:title => title, :number => number).first_or_create
+  def find_or_create_course!(department, title, number)
+    return Course.where(:title => title, :number => number, :department_id => department.id).first_or_create
   end
 
-  def find_or_create_instructor!(name)
-    return Instructor.where(:name => name).first_or_create
-  end
+  def find_or_create_section!(course, instructor, section_data)
 
-  def associate_and_create_section!(section_data, department, course, instructor)
-
-    section = Section.where(
+    return Section.where(
       :number => section_data[:section_number],
       :term => section_data[:term],
       :num_a => section_data[:count_a],
@@ -52,10 +50,17 @@ class SectionCreator
       :instructor_id => instructor.id
     ).first_or_create
 
-    print 'SECTION ISSSSSSSSSSSSSSSSSSS'
-    print section
+  end
 
-    # Link up the last couple models!
+  def find_or_create_instructor!(name)
+    return Instructor.where(:name => name).first_or_create
+  end
+
+
+
+  def associate_and_create_section!(section_data, department, course, instructor)
+
+       # Link up the last couple models!
     course.department = department
     course.save!
 
