@@ -6,6 +6,7 @@ class Course < ActiveRecord::Base
   has_many :instructors, :through => :sections
 
   attr_accessible :number, :title
+  attr_reader :avg_gpa
 
   validates_presence_of :number, :title
 
