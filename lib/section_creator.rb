@@ -3,4 +3,10 @@
 
 class SectionCreator
 
+  attr_accessor :sections
+
+  def initialize(sections)
+    @sections = sections
+  end
+
 end
