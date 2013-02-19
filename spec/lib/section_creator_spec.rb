@@ -86,12 +86,6 @@ describe SectionCreator do
           .with(course, instructor, example_section)
       end
 
-   #   it 'should call associate_models!' do
-   #     subject
-   #       .should_receive(:associate_models!)
-   #       .with(section, department, course, instructor)
-   #   end
-
       after(:each) do
         subject.create_section!(example_section)
       end
@@ -308,86 +302,5 @@ describe SectionCreator do
     end
 
   end
-=begin
-
-  describe 'associate_models!' do
-
-    # This section is a little bloated.  Maybe refactor this method into a couple separate ones
-
-    before(:each) do
-#        section.course_id = course.id
-#        section.instructor_id = instructor.id
-      subject.associate_models!(section, department, course, instructor)
-    end
-
-
-    context 'department assocation' do
-
-      it 'to course' do
-        department.courses.should include(course)
-      end
-
-      it 'to instructor' do
-        department.instructors.should include(instructor)
-      end
-
-      it 'to section' do
-        department.sections.should include(section)
-      end
-
-    end
-
-    context 'course association' do
-
-      it 'to department' do
-        course.department.should == department
-      end
-
-      it 'to instructor' do
-        course.instructors.should include(instructor)
-      end
-
-      it 'to section' do
-        course.sections.should include(section)
-      end
-
-    end
-
-    context 'instructor association' do
-
-      it 'to department' do
-        instructor.departments.should include(department)
-      end
-
-      it 'to course' do
-        instructor.courses.should include(course)
-      end
-
-      it 'to section' do
-        instructor.sections.should include(section)
-      end
-
-    end
-
-    context 'section association' do
-
-      it 'to department' do
-        section.department.should == department
-      end
-
-      it 'to course' do
-        section.course.should == course
-      end
-
-      it 'to instructor' do
-        section.instructor.should == instructor
-      end
-
-    end
-
-  end
-=end
-
-
 
 end

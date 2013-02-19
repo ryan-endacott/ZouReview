@@ -22,9 +22,6 @@ class SectionCreator
     instructor = find_or_create_instructor!(section_data[:instructor])
     section = find_or_create_section!(course, instructor, section_data)
 
-
-   # associate_and_create_section!(section_data, department, course, instructor)
-
   end
 
   def find_or_create_department!(abbreviation)
@@ -54,19 +51,6 @@ class SectionCreator
 
   def find_or_create_instructor!(name)
     return Instructor.where(:name => name).first_or_create
-  end
-
-
-
-  def associate_and_create_section!(section_data, department, course, instructor)
-
-       # Link up the last couple models!
-    course.department = department
-    course.save!
-
-    instructor.sections << section
-    instructor.save!
-
   end
 
 end
