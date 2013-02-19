@@ -20,7 +20,7 @@ describe SectionCreator do
 
   describe 'create_sections!' do
 
-    before(:all) do
+    before(:each) do
       subject.stub(:create_section!)
     end
 
@@ -30,7 +30,7 @@ describe SectionCreator do
       end
     end
 
-    after(:all) do
+    after(:each) do
       subject.create_sections!
     end
 
@@ -39,7 +39,7 @@ describe SectionCreator do
   describe 'create_section!' do
 
 
-    before(:all) do
+    before(:each) do
       subject.stub(:find_or_create_department!).and_return department
       subject.stub(:find_or_create_course!).and_return course
       subject.stub(:find_or_create_instructor!).and_return instructor
@@ -70,7 +70,7 @@ describe SectionCreator do
         .with(example_section, department, course, instructor)
     end
 
-    after(:all) do
+    after(:each) do
       subject.create_section!(example_section)
     end
 
@@ -78,7 +78,7 @@ describe SectionCreator do
 
   describe 'find_or_create_department!' do
 
-    before(:all) do
+    before(:each) do
       Department.stub_chain(:where, :first_or_create).and_return department
     end
  
@@ -97,7 +97,7 @@ describe SectionCreator do
         Department.should_receive(:first_or_create)
       end
 
-      after(:all) do 
+      after(:each) do 
         subject.find_or_create_department!(example_section[:course_dept])
       end
 
@@ -107,7 +107,7 @@ describe SectionCreator do
 
   describe 'find_or_create_course!' do
 
-    before(:all) do
+    before(:each) do
       Course.stub_chain(:where, :first_or_create).and_return course
     end
 
@@ -127,6 +127,10 @@ describe SectionCreator do
         Course.should_receive(:first_or_create)
       end
 
+      after(:each) do
+        subject.find_or_create_course!(example_section[:course_title], example_section[:course_number])
+      end
+
     end
 
   end
@@ -134,7 +138,7 @@ describe SectionCreator do
 
   describe 'find_or_create_instructor!' do
 
-    before(:all) do
+    before(:each) do
       Instructor.stub_chain(:where, :first_or_create).and_return instructor
     end
 
@@ -154,6 +158,10 @@ describe SectionCreator do
         Instructor.should_receive(:first_or_create)
       end
 
+      after(:each) do
+        subject.find_or_create_instructor!(example_section[:instructor])
+      end
+
     end
 
   end
@@ -161,7 +169,7 @@ describe SectionCreator do
 
   describe 'associate_and_create_section!' do
 
-    before(:all) do
+    before(:each) do
       department.stub(:save!)
       course.stub(:save!)
       instructor.stub(:save!)
@@ -187,7 +195,7 @@ describe SectionCreator do
         Section.should_receive(:first_or_create)
       end
 
-      after(:all) do
+      after(:each) do
         subject.associate_and_create_section!(example_section, department, course, instructor)
       end
 
@@ -195,7 +203,7 @@ describe SectionCreator do
 
     context 'testing if associations were set up correctly:' do
 
-      before(:all) do
+      before(:each) do
         subject.associate_and_create_section!(example_section, department, course, instructor)
       end
 
