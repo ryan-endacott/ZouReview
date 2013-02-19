@@ -7,15 +7,15 @@ describe SectionCreator do
   let!(:sections) { FactoryGirl.build_list(:crawled_data, 10) }
   let(:example_section) { sections.first }
 
-  let(:department) { FactoryGirl.build(:department) }
-  let(:course) { FactoryGirl.build(:course) }
-  let(:instructor) { FactoryGirl.build(:instructor) }
-  let(:section) { FactoryGirl.build(:section) }
+  let(:department) { FactoryGirl.create(:department) }
+  let(:course) { FactoryGirl.create(:course) }
+  let(:instructor) { FactoryGirl.create(:instructor) }
+  let(:section) { FactoryGirl.create(:section) }
 
   subject { SectionCreator.new(sections) }
 
   describe 'initialize' do
-    its(:sections) { should == sections }
+    its(:section_data_array) { should == sections }
   end
 
   describe 'create_sections!' do
@@ -79,7 +79,8 @@ describe SectionCreator do
   describe 'find_or_create_department!' do
 
     before(:each) do
-      Department.stub_chain(:where, :first_or_create).and_return department
+      Department.stub(:where).and_return department
+      department.stub(:first_or_create).and_return department
     end
  
     it 'should return a department' do
@@ -94,7 +95,7 @@ describe SectionCreator do
       end
 
       it 'should call Department.first_or_create' do
-        Department.should_receive(:first_or_create)
+        department.should_receive(:first_or_create)
       end
 
       after(:each) do 
@@ -108,7 +109,8 @@ describe SectionCreator do
   describe 'find_or_create_course!' do
 
     before(:each) do
-      Course.stub_chain(:where, :first_or_create).and_return course
+      Course.stub(:where).and_return course
+      course.stub(:first_or_create).and_return course
     end
 
     it 'should return a course' do
@@ -124,7 +126,7 @@ describe SectionCreator do
       end
 
       it 'should call Course.first_or_create' do
-        Course.should_receive(:first_or_create)
+        course.should_receive(:first_or_create)
       end
 
       after(:each) do
@@ -139,7 +141,8 @@ describe SectionCreator do
   describe 'find_or_create_instructor!' do
 
     before(:each) do
-      Instructor.stub_chain(:where, :first_or_create).and_return instructor
+      Instructor.stub(:where).and_return instructor
+      instructor.stub(:first_or_create).and_return instructor
     end
 
     it 'should return a instructor' do
@@ -155,7 +158,7 @@ describe SectionCreator do
       end
 
       it 'should call Instructor.first_or_create' do
-        Instructor.should_receive(:first_or_create)
+        instructor.should_receive(:first_or_create)
       end
 
       after(:each) do
@@ -169,14 +172,17 @@ describe SectionCreator do
 
   describe 'associate_and_create_section!' do
 
-    before(:each) do
-      department.stub(:save!)
-      course.stub(:save!)
-      instructor.stub(:save!)
-      Section.stub_chain(:where, :first_or_create).and_return section
-    end
 
     context 'testing section calls' do
+
+      before(:each) do
+        Section.stub(:where).and_return section
+        section.stub(:first_or_create).and_return section
+        department.stub(:save!)
+        course.stub(:save!)
+        instructor.stub(:save!)
+        section.stub(:save!)
+      end
 
       it 'should call Section.where' do
         Section.should_receive(:where).with(
@@ -187,12 +193,14 @@ describe SectionCreator do
           :num_c => example_section[:count_c],
           :num_d => example_section[:count_d],
           :num_f => example_section[:count_f],
-          :avg_gpa => example_section[:avg_gpa]
+          :avg_gpa => example_section[:avg_gpa],
+          :course_id => course.id,
+          :instructor_id => instructor.id
         )
       end
 
       it 'should call Section.first_or_create' do
-        Section.should_receive(:first_or_create)
+        section.should_receive(:first_or_create)
       end
 
       after(:each) do
@@ -201,9 +209,12 @@ describe SectionCreator do
 
     end
 
+    # This section is a little bloated.  Maybe refactor this method into a couple separate ones
     context 'testing if associations were set up correctly:' do
 
       before(:each) do
+        section.course_id = course.id
+        section.instructor_id = instructor.id
         subject.associate_and_create_section!(example_section, department, course, instructor)
       end
 
