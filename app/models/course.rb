@@ -11,16 +11,16 @@ class Course < ActiveRecord::Base
 
   def update_avg_gpa!
 
-    num_sections = self.sections.count
+    num_sections = sections.count
 
     if num_sections > 0
-      total_gpa = self.sections.sum(:avg_gpa)
+      total_gpa = sections.sum(:avg_gpa)
       self.avg_gpa = total_gpa / num_sections
     else
       self.avg_gpa = 4.0
     end
 
-    self.save!
+    save!
 
   end
 
