@@ -22,6 +22,8 @@ class SectionCreator
     instructor = find_or_create_instructor!(section_data[:instructor])
     section = find_or_create_section!(course, instructor, section_data)
 
+    course.update_avg_gpa!
+
   end
 
   def find_or_create_department!(abbreviation)

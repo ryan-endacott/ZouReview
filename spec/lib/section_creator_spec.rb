@@ -57,6 +57,7 @@ describe SectionCreator do
       subject.stub(:find_or_create_course!).and_return course
       subject.stub(:find_or_create_instructor!).and_return instructor
       subject.stub(:find_or_create_section!).and_return section
+      course.stub(:update_avg_gpa!)
     end
 
     context 'testing implementation' do
@@ -83,6 +84,10 @@ describe SectionCreator do
         subject
           .should_receive(:find_or_create_section!)
           .with(course, instructor, example_section)
+      end
+
+      it 'should call course.update_avg_gpa!' do
+        course.should_receive(:update_avg_gpa!)
       end
 
       after(:each) do

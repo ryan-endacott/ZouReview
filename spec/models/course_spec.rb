@@ -14,6 +14,7 @@ describe Course do
     let(:section1) { FactoryGirl.create(:section, :avg_gpa => 3.5) }
     let(:section2) { FactoryGirl.create(:section, :avg_gpa => 3.2) }
     let(:avg_gpa) { 3.35 }
+
     describe 'update_avg_gpa!' do
 
       it 'should resave to database after calculating' do

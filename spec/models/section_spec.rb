@@ -23,20 +23,4 @@ describe Section do
   it {should validate_numericality_of(:num_f).only_integer}
   it {should validate_numericality_of :avg_gpa}
 
-  describe 'update_course_avg_gpa!' do
-
-    let(:section) { FactoryGirl.create(:section) }
-
-    it 'should call course.update_avg_gpa!' do
-      section.course.should_receive(:update_avg_gpa!)
-      section.update_course_avg_gpa!
-    end
-
-    it 'should be called after save' do
-      section.should_receive(:update_course_avg_gpa!)
-      section.save!
-    end
-
-  end
-
 end

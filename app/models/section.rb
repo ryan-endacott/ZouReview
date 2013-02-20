@@ -12,10 +12,4 @@ class Section < ActiveRecord::Base
 
   validates :avg_gpa, :numericality => true
 
-  after_save :update_course_avg_gpa!
-
-  def update_course_avg_gpa!
-    self.course.update_avg_gpa!
-  end
-
 end
