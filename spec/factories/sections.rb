@@ -9,5 +9,7 @@ FactoryGirl.define do
     num_d 0
     num_f 0
     avg_gpa 3.353
+    course
+    instructor
   end
 end
