@@ -57,7 +57,6 @@ describe SectionCreator do
       subject.stub(:find_or_create_course!).and_return course
       subject.stub(:find_or_create_instructor!).and_return instructor
       subject.stub(:find_or_create_section!).and_return section
-      subject.stub(:associate_models!)
     end
 
     context 'testing implementation' do
