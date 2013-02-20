@@ -4,8 +4,6 @@ class Instructor < ActiveRecord::Base
   has_many :courses, :through => :sections
   has_many :departments, :through => :courses
 
-  attr_accessible :name
-
   before_save :set_blank_name_to_staff
 
   private

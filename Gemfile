@@ -9,6 +9,9 @@ gem 'sqlite3'
 
 gem 'mysql2'
 
+# Prepare for rails 4!
+gem 'strong_parameters'
+
 group :development, :test do
   gem 'cucumber-rails', :require => false
   gem 'capybara'
