@@ -8,10 +8,16 @@ class Section < ActiveRecord::Base
   attr_accessible :avg_gpa, :num_a, :num_b, :num_c, :num_d, :num_f, :number, :term
 
   validates_presence_of :avg_gpa, :num_a, :num_b, :num_c, :num_d,
-    :num_f, :number, :term
+    :num_f, :number, :term, :course, :instructor
 
   validates :num_a, :num_b, :num_c, :num_d, :num_f, :numericality => {:only_integer => true}
 
   validates :avg_gpa, :numericality => true
+
+  after_save :update_course_avg_gpa!
+
+  def update_course_avg_gpa!
+    self.course.update_avg_gpa!
+  end
 
 end
