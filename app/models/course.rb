@@ -10,4 +10,19 @@ class Course < ActiveRecord::Base
 
   validates_presence_of :number, :title
 
+  def update_avg_gpa!
+
+    num_sections = self.sections.count
+
+    if num_sections > 0
+      total_gpa = self.sections.sum(:avg_gpa)
+      @avg_gpa = total_gpa / num_sections
+    else
+      @avg_gpa = 4.0
+    end
+    
+    self.save!
+
+  end
+
 end
