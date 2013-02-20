@@ -6,7 +6,6 @@ class Course < ActiveRecord::Base
   has_many :instructors, :through => :sections
 
   attr_accessible :number, :title
-  attr_reader :avg_gpa
 
   validates_presence_of :number, :title
 
@@ -16,13 +15,20 @@ class Course < ActiveRecord::Base
 
     if num_sections > 0
       total_gpa = self.sections.sum(:avg_gpa)
-      @avg_gpa = total_gpa / num_sections
+      self.avg_gpa = total_gpa / num_sections
     else
-      @avg_gpa = 4.0
+      self.avg_gpa = 4.0
     end
-    
+
     self.save!
 
   end
+
+  private
+
+  def avg_gpa=(val)
+    super
+  end
+
 
 end
