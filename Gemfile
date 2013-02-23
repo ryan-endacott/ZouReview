@@ -5,7 +5,6 @@ gem 'rails', '3.2.12'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'sqlite3'
 
 gem 'mysql2'
 
@@ -13,6 +12,7 @@ gem 'mysql2'
 gem 'strong_parameters'
 
 group :development, :test do
+  gem 'sqlite3'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'rspec-rails', '2.12.2'
