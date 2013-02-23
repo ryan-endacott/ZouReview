@@ -9,6 +9,10 @@ gem 'rails', '3.2.12'
 # Prepare for rails 4!
 gem 'strong_parameters'
 
+# Twitter Bootstrap!
+gem "twitter-bootstrap-rails"
+
+
 group :development, :test do
   gem 'sqlite3'
   gem 'cucumber-rails', :require => false
