@@ -12,6 +12,9 @@ gem 'strong_parameters'
 # Twitter Bootstrap!
 gem "twitter-bootstrap-rails"
 
+# Haml
+gem 'haml-rails'
+
 
 group :development, :test do
   gem 'sqlite3'
