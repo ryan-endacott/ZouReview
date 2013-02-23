@@ -1,0 +1,12 @@
+
+%h1 Add a Class Term To Database
+
+= form_tag admin_index_path, :method => :get do
+
+  = label :term, 'Term'
+  = text_field :term, 'Term'
+
+  = label :password, 'Password'
+  = password_field :password, 'Password'
+
+  = submit_tag 'Submit'
