@@ -12,6 +12,8 @@ gem 'strong_parameters'
 
 # Twitter Boostrap!
 gem 'twitter-bootstrap-rails'
+gem 'less-rails'
+gem 'therubyracer', '0.10.2'
 
 # Haml
 gem 'haml-rails'
@@ -35,8 +37,6 @@ end
 # in production environments by default.
 group :assets do
 
-  gem 'less-rails'
-  gem 'therubyracer', '0.10.2'
 
 
 
