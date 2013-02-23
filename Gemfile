@@ -6,8 +6,6 @@ gem 'rails', '3.2.12'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
-gem 'mysql2'
-
 # Prepare for rails 4!
 gem 'strong_parameters'
 
@@ -19,6 +17,10 @@ group :development, :test do
   gem 'ZenTest', '4.8.3'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+end
+
+group :production do
+  gem 'pg'
 end
 
 # Gems used only for assets and not required

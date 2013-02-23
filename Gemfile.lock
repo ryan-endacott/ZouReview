@@ -98,11 +98,11 @@ GEM
     mocha (0.10.5)
       metaclass (~> 0.0.1)
     multi_json (1.5.1)
-    mysql2 (0.3.11)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
     nokogiri (1.5.6)
     ntlm-http (0.1.1)
+    pg (0.14.1)
     polyglot (0.3.3)
     rack (1.4.5)
     rack-cache (1.2)
@@ -193,8 +193,8 @@ DEPENDENCIES
   figaro
   jquery-rails
   mechanize
-  mysql2
   nokogiri
+  pg
   rails (= 3.2.12)
   rspec-rails (= 2.12.2)
   sass-rails (~> 3.2.3)
