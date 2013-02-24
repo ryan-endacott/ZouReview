@@ -110,6 +110,7 @@ GEM
     multi_json (1.5.1)
     net-http-digest_auth (1.2.1)
     net-http-persistent (2.8)
+    newrelic_rpm (3.5.7.59)
     nokogiri (1.5.6)
     ntlm-http (0.1.1)
     pg (0.14.1)
@@ -209,6 +210,7 @@ DEPENDENCIES
   jquery-rails
   less-rails
   mechanize
+  newrelic_rpm
   nokogiri
   pg
   rails (= 3.2.12)
