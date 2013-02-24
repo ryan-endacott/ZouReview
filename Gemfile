@@ -20,6 +20,7 @@ gem 'haml-rails'
 
 
 group :development, :test do
+  gem 'webmock'
   gem 'sqlite3'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
