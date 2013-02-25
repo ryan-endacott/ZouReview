@@ -18,6 +18,9 @@ gem 'therubyracer', '0.10.2'
 # Haml
 gem 'haml-rails'
 
+# For background web crawling
+gem 'delayed_job_active_record'
+
 
 group :development, :test do
   gem 'webmock'
