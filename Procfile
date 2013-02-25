@@ -1,3 +1,3 @@
 
 web:  bundle exec rails server -p $PORT
-worker: bundle exec rake jobs:work
+worker: env QUEUE=* bundle exec rake jobs:work
