@@ -4,6 +4,14 @@ describe AdminController do
 
   describe '#crawl_grades' do
 
+    before(:each) do
+      Delayed::Job.stub(:enqueue)
+    end
+
+    it 'should render the index view' do
+      expect(response).to render_template('index')
+    end
+
     context 'correct password' do
 
       it 'should correctly start a job to crawl the grades' do
@@ -22,6 +30,10 @@ describe AdminController do
     context 'incorrect password' do
 
       it 'should redirect to the admin page with an error' do
+
+      end
+
+      it 'should not start a job to crawl grades' do
 
       end
 
