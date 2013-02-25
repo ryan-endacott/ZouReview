@@ -15,6 +15,7 @@ Mizzouclass::Application.routes.draw do
 
   # Admin routes
   get '/admin' => 'admin#index'
+  post '/admin/crawl_grades' => 'admin#crawl_grades'
 
 
   # Sample resource route with options:
