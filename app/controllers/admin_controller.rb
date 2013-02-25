@@ -1,3 +1,6 @@
+require 'grade_crawler_job'
+
+
 class AdminController < ApplicationController
 
   def index
