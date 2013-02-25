@@ -1,7 +1,7 @@
 
 %h1 Add a Class Term To Database
 
-= form_tag admin_index_path, :method => :get do
+= form_tag admin_path, :method => :post do
 
   = label :term, 'Term'
   = text_field_tag :term
