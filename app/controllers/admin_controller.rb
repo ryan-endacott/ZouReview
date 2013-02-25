@@ -15,7 +15,7 @@ class AdminController < ApplicationController
       flash[:error] = "Error!  Incorrect password."
     end
 
-    render 'index'
+    redirect_to admin_path and return
 
   end
 

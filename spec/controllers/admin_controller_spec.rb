@@ -14,7 +14,7 @@ describe AdminController do
 
     it 'should render the index view' do
       post :crawl_grades
-      expect(response).to render_template('index')
+      expect(response).to redirect_to(admin_path)
     end
 
     context 'correct password' do
