@@ -20,6 +20,7 @@ gem 'haml-rails'
 
 # For background web crawling
 gem 'delayed_job_active_record'
+gem "workless", "~> 1.1.1"
 
 
 group :development, :test do
