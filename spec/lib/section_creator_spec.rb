@@ -174,12 +174,28 @@ describe SectionCreator do
       department.stub(:first_or_create).and_return department
     end
  
-    it 'should return a department' do
-      subject.find_or_create_department!(example_section[:course_dept])
-        .should == department
+    context 'cached' do
+
+      before(:each) do
+        Rails.cache.write('department/' + example_section[:course_dept], department)
+      end
+
+      it 'should not call department' do
+        Department.should_not_receive(:where)
+      end
+
+      it 'should return a department' do
+        subject.find_or_create_department!(example_section[:course_dept])
+          .should == department
+      end
+
     end
 
-    context 'inner method logic' do
+    context 'uncached' do
+
+      before(:each) do
+        Rails.cache.clear
+      end
 
       it 'should call Department.where with proper params' do
         Department.should_receive(:where).with(:abbreviation => example_section[:course_dept])
@@ -189,10 +205,15 @@ describe SectionCreator do
         department.should_receive(:first_or_create)
       end
 
-      after(:each) do 
+      it 'should return a department' do
         subject.find_or_create_department!(example_section[:course_dept])
+          .should == department
       end
 
+    end
+
+    after(:each) do 
+      subject.find_or_create_department!(example_section[:course_dept])
     end
 
   end
