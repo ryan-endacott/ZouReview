@@ -9,8 +9,11 @@ class AdminController < ApplicationController
   def crawl_grades
 
     if params[:password] == ENV['SECRET_PASSWORD']
-      Delayed::Job.enqueue GradeCrawlerJob.new(params[:term])
-      flash[:success] = "Success!  Crawling of term #{params[:term]} is beginning."
+      terms = params[:term].split(',').collect(&:strip)
+      terms.each do |term|
+        Delayed::Job.enqueue GradeCrawlerJob.new(term)
+      end
+      flash[:success] = "Success!  Crawling of the following terms is beginning: #{params[:term]}"
     else
       flash[:error] = "Error!  Incorrect password."
     end
