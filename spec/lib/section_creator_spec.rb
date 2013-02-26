@@ -225,12 +225,30 @@ describe SectionCreator do
       course.stub(:first_or_create).and_return course
     end
 
-    it 'should return a course' do
-      subject.find_or_create_course!(department, example_section[:course_title], example_section[:course_number])
-        .should == course
+    context 'cached' do
+
+      before(:all) do
+        Rails.cache.write(
+          'course/' + department.id.to_s + '/' + example_section[:course_title] + '/' + example_section[:course_number],
+          course)
+      end
+
+      it 'should not call course' do
+        Course.should_not_receive(:where)
+      end
+
+      it 'should return a course' do
+        subject.find_or_create_course!(department, example_section[:course_title], example_section[:course_number])
+          .should == course
+      end
+
     end
 
-    context 'inner method logic' do
+    context 'uncached' do
+
+      before(:each) do
+        Rails.cache.clear
+      end
 
       it 'should call Course.where with proper params' do
         Course.should_receive(:where)
@@ -245,11 +263,17 @@ describe SectionCreator do
         course.should_receive(:first_or_create)
       end
 
-      after(:each) do
+      it 'should return a course' do
         subject.find_or_create_course!(department, example_section[:course_title], example_section[:course_number])
+          .should == course
       end
 
     end
+
+    after(:each) do
+      subject.find_or_create_course!(department, example_section[:course_title], example_section[:course_number])
+    end
+
 
   end
 
