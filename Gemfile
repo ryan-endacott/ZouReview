@@ -11,9 +11,8 @@ gem 'strong_parameters'
 
 
 # Twitter Boostrap!
-gem 'twitter-bootstrap-rails'
-gem 'less-rails'
-gem 'therubyracer', '0.10.2'
+gem 'sass-rails', '~> 3.2'
+gem 'bootstrap-sass', '~> 2.3.0.1'
 
 # Haml
 gem 'haml-rails'
