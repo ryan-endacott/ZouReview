@@ -27,7 +27,9 @@ class SectionCreator
   end
 
   def find_or_create_department!(abbreviation)
-    return Department.where(:abbreviation => abbreviation).first_or_create
+    Rails.cache.fetch('department/' + abbreviation) do
+      Department.where(:abbreviation => abbreviation).first_or_create
+    end
   end
 
   def find_or_create_course!(department, title, number)

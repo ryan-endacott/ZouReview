@@ -176,7 +176,7 @@ describe SectionCreator do
  
     context 'cached' do
 
-      before(:each) do
+      before(:all) do
         Rails.cache.write('department/' + example_section[:course_dept], department)
       end
 
