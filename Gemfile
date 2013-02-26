@@ -24,7 +24,6 @@ gem 'workless', '~> 1.1.1'
 
 
 group :development, :test do
-  gem 'webmock'
   gem 'sqlite3'
   gem 'cucumber-rails', :require => false
   gem 'capybara'
@@ -33,6 +32,10 @@ group :development, :test do
   gem 'ZenTest', '4.8.3'
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'webmock'
 end
 
 group :production do
