@@ -14,6 +14,9 @@ gem 'strong_parameters'
 gem 'sass-rails', '~> 3.2'
 gem 'bootstrap-sass', '~> 2.3.0.1'
 
+gem 'bootstrap_helper'
+
+
 # Haml
 gem 'haml-rails'
 
