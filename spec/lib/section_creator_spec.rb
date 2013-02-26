@@ -328,12 +328,28 @@ describe SectionCreator do
       instructor.stub(:first_or_create).and_return instructor
     end
 
-    it 'should return a instructor' do
-      subject.find_or_create_instructor!(example_section[:instructor])
-        .should == instructor
+    context 'cached' do
+
+      before(:all) do
+        Rails.cache.write('instructor/' + example_section[:instructor], instructor)
+      end
+
+      it 'should not call instructor' do
+        Instructor.should_not_receive(:where)
+      end
+
+      it 'should return a instructor' do
+        subject.find_or_create_instructor!(example_section[:instructor])
+          .should == instructor
+      end
+
     end
 
-    context 'inner method logic' do
+    context 'uncached' do
+
+      before(:each) do
+        Rails.cache.clear
+      end
 
       it 'should call Instructor.where with proper params' do
         Instructor.should_receive(:where)
@@ -344,10 +360,18 @@ describe SectionCreator do
         instructor.should_receive(:first_or_create)
       end
 
-      after(:each) do
+      it 'should return a instructor' do
         subject.find_or_create_instructor!(example_section[:instructor])
+          .should == instructor
       end
+    end
 
+
+    # In all of the find_or_create methods with caching (instructor, course, dept)
+    # This will be called a couple extra times in favor of less complex test code
+    # Potential refactor later
+    after(:each) do
+      subject.find_or_create_instructor!(example_section[:instructor])
     end
 
   end
