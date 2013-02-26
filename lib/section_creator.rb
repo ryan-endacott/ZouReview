@@ -56,7 +56,9 @@ class SectionCreator
   end
 
   def find_or_create_instructor!(name)
-    return Instructor.where(:name => name).first_or_create
+    Rails.cache.fetch('instructor/' + name) do
+      Instructor.where(:name => name).first_or_create
+    end
   end
 
 end
