@@ -4,7 +4,7 @@
     %meta(charset="utf-8")
     %meta(http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1")
     %meta(name="viewport" content="width=device-width, initial-scale=1.0")
-    %title= content_for?(:title) ? yield(:title) : "Mizzouclass"
+    %title= content_for?(:title) ? yield(:title) : "ZouReview"
     = csrf_meta_tags
     / Le HTML5 shim, for IE6-8 support of HTML elements
     /[if lt IE 9]
@@ -18,9 +18,9 @@
 
 
   %body
-    .navbar.navbar-fluid-top
+    .navbar#main-nav
       .navbar-inner
-        .container-fluid
+        .container
           %a.btn.btn-navbar(data-target=".nav-collapse" data-toggle="collapse")
             %span.icon-bar
             %span.icon-bar
@@ -32,9 +32,9 @@
               %li= link_to "Link 2", "/path2"
               %li= link_to "Link 3", "/path3"
 
-    .container-fluid
+    .container
 
-      .row-fluid
+      .row
         .span3
           .well.sidebar-nav
             %ul.nav.nav-list
@@ -46,7 +46,7 @@
           = yield
     
       %footer
-        %p &copy; Company 2013
+        %p Created by Ryan Endacott
     /
       Javascripts
       \==================================================

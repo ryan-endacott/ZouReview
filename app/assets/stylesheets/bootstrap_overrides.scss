@@ -243,5 +243,14 @@ $popoverArrowOuterColor:  rgba(0,0,0,.25);
 @import "bootstrap";
 
 
+// Stuff below here is editing bootstrap stuff that isn't made of variables
+// Except for the responsive import
+
+.container {
+  max-width: 1170px;
+}
 
 @import "bootstrap-responsive";
+
+
+
