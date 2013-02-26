@@ -33,7 +33,9 @@ class SectionCreator
   end
 
   def find_or_create_course!(department, title, number)
-    return Course.where(:title => title, :number => number, :department_id => department.id).first_or_create
+    Rails.cache.fetch('course/' + department.id.to_s + '/' + title + '/' + number) do
+      Course.where(:title => title, :number => number, :department_id => department.id).first_or_create
+    end
   end
 
   def find_or_create_section!(course, instructor, section_data)
