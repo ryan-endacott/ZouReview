@@ -16,4 +16,11 @@ Then /I should see an error message/ do
   page.should have_css('.alert-error')
 end
 
+Then /I should see "(.*)"/ do |items|
+  items.split(',').collect(&:strip).each do |item|
+    page.should have_content(item)
+  end
+end
+
+
 
