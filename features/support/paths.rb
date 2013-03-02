@@ -5,6 +5,8 @@ module NavigationHelpers
     case page_name
       when /^the admin page/
         admin_path
+      when /^the courses page/
+        course_path
       else
         raise "Can't find mapping from \"#{page_name}\" to a path."
     end
