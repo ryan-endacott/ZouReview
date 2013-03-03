@@ -10,7 +10,11 @@ describe SectionCreator do
   let(:department) { FactoryGirl.create(:department) }
   let(:course) { FactoryGirl.create(:course) }
   let(:instructor) { FactoryGirl.create(:instructor) }
-  let(:section) { FactoryGirl.create(:section) }
+  let(:section) { 
+    s = FactoryGirl.build(:section, :course => nil, :instructor => nil) 
+    s.save(:validate => false)
+    s
+  }
 
   subject { SectionCreator.new(sections) }
 
