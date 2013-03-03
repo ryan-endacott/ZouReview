@@ -22,35 +22,26 @@ describe Course do
         course.update_avg_gpa!
       end
 
-      context 'checking results' do
 
-        before(:each) do
-          course.update_avg_gpa!
-        end
+      it 'should correctly calculate gpa' do
 
-        context 'Course has sections' do
+        section1.course = course
+        section2.course = course
+        section1.save
+        section2.save
 
-          before(:all) do
-            course.sections << section1
-            course.sections << section2
-            course.save!
-          end
+        course.update_avg_gpa!
 
-          it 'should correctly calculate gpa' do
-            course.avg_gpa.should == avg_gpa
-          end
-
-        end
-
-        context 'Course has no sections' do
-
-          it 'should set avg_gpa to 4.0 if no sections' do
-            course.avg_gpa.should == 4.0
-          end
-
-        end
-
+        course.avg_gpa.should == avg_gpa
       end
+
+
+      it 'should set avg_gpa to 4.0 if no sections' do
+        course.update_avg_gpa!
+        course.avg_gpa.should == 4.0
+      end
+
+
     end
 
     describe 'the attribute itself' do

@@ -9,7 +9,7 @@ class Course < ActiveRecord::Base
 
   def update_avg_gpa!
 
-    num_sections = sections.count
+    num_sections = sections.size
 
     if num_sections > 0
       total_gpa = sections.sum(:avg_gpa)
