@@ -1,0 +1,17 @@
+%h1 Listing courses
+
+%table.table.table-bordered
+  %tr
+    %th Title
+    %th Number
+    %th Avg gpa
+    %th Department
+
+  - @courses.each do |course|
+    %tr
+      %td= link_to course.title, course_path(course)
+      %td= course.number
+      %td= course.avg_gpa
+      %td= course.department.abbreviation if course.department
+
+%br

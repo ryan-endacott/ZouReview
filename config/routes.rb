@@ -17,6 +17,10 @@ Mizzouclass::Application.routes.draw do
   get '/admin' => 'admin#index'
   post '/admin/crawl_grades' => 'admin#crawl_grades'
 
+  get '/courses' => 'courses#index'
+  get '/courses/:id' => 'courses#show', :as => :course
+
+  root :to => redirect('/courses')
 
   # Sample resource route with options:
   #   resources :products do
