@@ -35,6 +35,20 @@ describe Course do
         course.avg_gpa.should == avg_gpa
       end
 
+      it 'should round to two decimal places' do
+        section1.avg_gpa = 0.01
+        section1.course = course
+        section2.avg_gpa = 0.02
+        section2.course = course
+        section1.save
+        section2.save
+
+        course.update_avg_gpa!
+
+        course.avg_gpa.should == 0.02
+
+      end
+
 
       it 'should set avg_gpa to 4.0 if no sections' do
         course.update_avg_gpa!
