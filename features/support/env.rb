@@ -6,6 +6,9 @@
 
 require 'cucumber/rails'
 
+# Rspec
+require 'cucumber/rspec/doubles'
+
 # Webmock
 require 'webmock/cucumber'
 

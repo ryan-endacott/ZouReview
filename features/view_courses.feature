@@ -12,10 +12,10 @@ Background:
   |Calculus    |1700         |3.8     |
   |Algebra     |1200         |2.8     |
 
-  Given I am on the courses page
+  Given pagination for courses is set to 2
+  And I am on the courses page
 
 Scenario: View courses by default should paginate
-  Given pagination for courses is set to 2
   Then I should see "English, Calculus"
   And I should not see "Algebra"
   And I click on page 2

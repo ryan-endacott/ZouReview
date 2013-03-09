@@ -28,7 +28,7 @@ end
 
 Then /^I click on page (\d+)$/ do |page|
   within(:css, ".pagination") do
-    click(page)
+    click_link(page)
   end 
 end
 

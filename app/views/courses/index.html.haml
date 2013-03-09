@@ -14,4 +14,6 @@
       %td= course.avg_gpa
       %td= course.department.abbreviation if course.department
 
+  = will_paginate @courses
+
 %br

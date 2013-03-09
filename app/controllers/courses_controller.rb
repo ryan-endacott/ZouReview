@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.page(params[:page])
+    @courses = Course.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
