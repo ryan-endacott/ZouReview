@@ -9,6 +9,9 @@ gem 'rails', '3.2.12'
 # Prepare for rails 4!
 gem 'strong_parameters'
 
+# Paginate!
+gem 'will_paginate', '~> 3.0'
+
 
 # Twitter Boostrap!
 gem 'sass-rails', '~> 3.2'

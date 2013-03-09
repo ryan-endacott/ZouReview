@@ -256,4 +256,5 @@ DEPENDENCIES
   strong_parameters
   uglifier (>= 1.0.3)
   webmock
+  will_paginate (~> 3.0)
   workless (~> 1.1.1)
