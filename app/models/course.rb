@@ -7,6 +7,8 @@ class Course < ActiveRecord::Base
 
   validates_presence_of :number, :title
 
+  self.per_page = 50
+
   def update_avg_gpa!
 
     num_sections = sections.size
