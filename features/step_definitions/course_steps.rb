@@ -13,5 +13,5 @@ Given /the following courses exist/ do |courses_table|
 end
 
 Given /^pagination for courses is set to (\d+)$/ do |num|
-  Course.per_page = num
+  Course.stub(:per_page).and_return num
 end
