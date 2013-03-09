@@ -27,25 +27,25 @@ describe CoursesController do
     {}
   end
 
+  let(:course1) { FactoryGirl.create(:course) }
+  let(:course2) { FactoryGirl.create(:course) }
+
   describe "GET index" do
 
     describe 'pagination' do
 
-      let!(:course1) { FactoryGirl.create(:course) }
-      let!(:course2) { FactoryGirl.create(:course) }
-
       before(:each) do
-        Course.per_page = 1
+        Course.stub(:per_page).and_return 1
       end
 
       it 'paginates courses as @courses' do
         get :index, {}, valid_session
-        assigns(:courses).should eq([course1])
+        assigns(:courses).should eq([Course.first])
       end
 
       it 'paginates the second page' do
         get :index, { :page => 2 }, valid_session
-        assigns(:courses).should eq([course2])
+        assigns(:courses).should eq([Course.find(2)])
       end
 
     end
@@ -54,9 +54,8 @@ describe CoursesController do
 
   describe "GET show" do
     it "assigns the requested course as @course" do
-      course = FactoryGirl.create(:course)
-      get :show, {:id => course.to_param}, valid_session
-      assigns(:course).should eq(course)
+      get :show, {:id => course1.to_param}, valid_session
+      assigns(:course).should eq(course1)
     end
   end
 
