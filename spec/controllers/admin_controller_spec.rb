@@ -14,7 +14,7 @@ describe AdminController do
       GradeCrawlerJob.stub(:new).with('FS2011').and_return grade_crawler_job2
     end
 
-    it 'should render the index view' do
+    it 'should redirect to admin path' do
       post :crawl_grades
       expect(response).to redirect_to(admin_path)
     end
