@@ -14,6 +14,12 @@ Background:
 
   Given I am on the courses page
 
-Scenario: View courses by default
-  Then I should see "English, Calculus, Algebra"
+Scenario: View courses by default should paginate
+  Given pagination for courses is set to 2
+  Then I should see "English, Calculus"
+  And I should not see "Algebra"
+  And I click on page 2
+  Then I should see "Algebra"
+  And I should not see "English, Calculus"
+
 
