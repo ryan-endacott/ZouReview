@@ -8,6 +8,10 @@ describe Course do
   it {should validate_presence_of :title}
   it {should validate_presence_of :number}
 
+  it 'should paginate 50 per page by default' do
+    Course.per_page.should == 50
+  end
+
   describe 'avg_gpa' do
 
     let(:course) { FactoryGirl.create(:course) }
