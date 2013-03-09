@@ -11,3 +11,7 @@ Given /the following courses exist/ do |courses_table|
     c.save!
   end
 end
+
+Given /^pagination for courses is set to (\d+)$/ do |num|
+  Course.per_page = num
+end
