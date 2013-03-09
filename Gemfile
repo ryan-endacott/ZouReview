@@ -19,6 +19,8 @@ gem 'bootstrap-sass', '~> 2.3.0.1'
 
 gem 'bootstrap_helper'
 
+gem 'bootstrap-will_paginate'
+
 
 # Haml
 gem 'haml-rails'
