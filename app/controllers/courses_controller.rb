@@ -3,7 +3,7 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.paginate(:page => params[:page])
+    @courses = Course.paginate(:page => params[:page]).order('avg_gpa DESC')
 
     respond_to do |format|
       format.html # index.html.erb
