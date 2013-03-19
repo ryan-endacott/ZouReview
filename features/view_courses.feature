@@ -15,11 +15,11 @@ Background:
   Given pagination for courses is set to 2
   And I am on the courses page
 
-Scenario: View courses by default should paginate
-  Then I should see "English, Calculus"
-  And I should not see "Algebra"
+Scenario: View courses by default should paginate in order by gpa
+  Then "Calculus" should be visible before "Algebra"
+  And I should not see "English"
   And I click on page 2
-  Then I should see "Algebra"
-  And I should not see "English, Calculus"
+  Then I should see "English"
+  And I should not see "Algebra, Calculus"
 
 
