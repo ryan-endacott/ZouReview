@@ -27,25 +27,51 @@ describe CoursesController do
     {}
   end
 
-  let(:course1) { FactoryGirl.create(:course) }
-  let(:course2) { FactoryGirl.create(:course) }
+  let!(:course1) do
+    c = Course.new
+    c.title = 'english'
+    c.number = '1000H'
+    c.send(:avg_gpa=, 4)
+    c.save!
+    c
+  end
+
+  let!(:course2) do
+    c = Course.new
+    c.title = 'math'
+    c.number = '200H'
+    c.send(:avg_gpa=, 1)
+    c.save!
+    c
+  end
+
+  let!(:course3) do
+    c = Course.new
+    c.title = 'history'
+    c.number = '3000'
+    c.send(:avg_gpa=, 3)
+    c.save!
+    c
+  end
+ 
+ 
 
   describe "GET index" do
 
     describe 'pagination' do
 
       before(:each) do
-        Course.stub(:per_page).and_return 1
+        Course.stub(:per_page).and_return 2
       end
 
       it 'paginates courses as @courses' do
-        get :index, {}, valid_session
-        assigns(:courses).should eq([Course.first])
+        get :index
+        assigns(:courses).should eq([course1, course3])
       end
 
       it 'paginates the second page' do
-        get :index, { :page => 2 }, valid_session
-        assigns(:courses).should eq([Course.find(2)])
+        get :index, :page => 2
+        assigns(:courses).should eq([course2])
       end
 
     end
