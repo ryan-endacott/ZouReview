@@ -16,7 +16,7 @@ Then /I should see an error message/ do
   page.should have_css('.alert-error')
 end
 
-Then /I should (not )?see "(.*)"/ do |should_not_see, items|
+Then /I should (not )?see "(.*)"$/ do |should_not_see, items|
   items.split(',').collect(&:strip).each do |item|
     if should_not_see
       page.should_not have_content(item)
@@ -27,9 +27,13 @@ Then /I should (not )?see "(.*)"/ do |should_not_see, items|
 end
 
 Then /^I click on page (\d+)$/ do |page|
-  within(:css, ".pagination") do
+  within(first(:css, ".pagination")) do
     click_link(page)
   end 
+end
+
+Then /^"(.*)" should be visible before "(.*)"/ do |first, second|
+  page.body.index(first).should < page.body.index(second)
 end
 
 
