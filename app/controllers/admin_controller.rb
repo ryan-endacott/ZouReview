@@ -8,7 +8,7 @@ class AdminController < ApplicationController
 
   def crawl_grades
 
-    if params[:password] == ENV['SECRET_PASSWORD']
+    if params[:password] == ENV['SECRET_PASSWORD'] and params[:term]
       terms = params[:term].split(',').collect(&:strip)
       terms.each do |term|
         Delayed::Job.enqueue GradeCrawlerJob.new(term)

@@ -1,7 +1,6 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    ZenTest (4.8.3)
     actionmailer (3.2.13)
       actionpack (= 3.2.13)
       mail (~> 2.5.3)
@@ -234,7 +233,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ZenTest (= 4.8.3)
   bootstrap-sass (~> 2.3.0.1)
   bootstrap-will_paginate
   bootstrap_helper

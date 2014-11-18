@@ -3,8 +3,6 @@
 require 'nokogiri'
 require 'mechanize'
 
-
-
 class GradeCrawler
 
   POST_STRING_HALF1 = "vterm="
@@ -13,7 +11,7 @@ class GradeCrawler
   SITE_URI= 'https://musis1.missouri.edu/gradedist/mu_grade_dist_intro.cfm#CGI.script.name'
   REQUEST_HEADER = {'Content-Type' => 'application/x-www-form-urlencoded'}
 
-  NUM_COLUMNS = 13 
+  NUM_COLUMNS = 13
 
   def self.get_grade_data(term=get_current_term)
 
@@ -84,7 +82,7 @@ class GradeCrawler
     fall_start = Time.mktime(cur_year, 8, 15)
     winter_start = Time.mktime(cur_year, 12, 15)
 
-    # Find where now is contained 
+    # Find where now is contained
     if (start_of_year..spring_start).cover? now
       return 'WS' + cur_year.to_s
     elsif (spring_start..summer_start).cover? now
