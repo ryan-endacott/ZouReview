@@ -13,6 +13,33 @@ class GradeCrawler
 
   NUM_COLUMNS = 13
 
+  TERM_LETTERS_IN_ORDER = ['WS', 'SP', 'SS', 'FS']
+
+  def self.get_grade_data_for_multiple_terms(start_term, end_term)
+    start_season = start_term.chars.first(2).join
+    cur_season_index = TERM_LETTERS_IN_ORDER.index(start_season)
+    cur_year = start_term.chars.last(4).join.to_i
+    end_season = end_term.chars.first(2).join
+    end_season_index = TERM_LETTERS_IN_ORDER.index(end_season)
+    end_year = end_term.chars.last(4).join.to_i
+
+    results = {}
+    # Loop from start term to end term
+    while true do
+      cur_term = "#{TERM_LETTERS_IN_ORDER[cur_season_index]}#{cur_year}"
+      puts "Crawling term #{cur_term}..."
+      results[cur_term] = get_grade_data(cur_term)
+      cur_season_index += 1
+      if cur_season_index > (TERM_LETTERS_IN_ORDER.size - 1)
+        cur_season_index = 0
+        cur_year += 1
+      end
+      break if cur_year > end_year ||
+        (cur_year == end_year && cur_season_index > end_season_index)
+    end
+    return results
+  end
+
   def self.get_grade_data(term=get_current_term)
 
     post_string = get_post_string(term)
