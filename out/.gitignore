@@ -1,0 +1,6 @@
+# Ignore everything in this directory
+*
+# Except this file
+!.gitignore
+
+# We need this file so that the default output file can be written in this directory.
